@@ -24,6 +24,8 @@
 	</security:authentication-provider>
 </security:authentication-manager>
  -->
+ 
+ 
 <bean id="passwordEncoder" 
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<constructor-arg index="0" value="4" />
@@ -106,16 +108,16 @@ hasRole('역할') 과 같은 표현식을 사용할수 있도록 선언
 			login-processing-url="/login"
 			authentication-failure-url="/auth/login?error"
 			
-			default-target-url="/auth/login_ok"
+			default-target-url="/"
 			username-parameter="username"
 			password-parameter="password" 
 			/>
 			
 	<!-- 
 	logout을 시도해서 정상적으로 logout이 되면
-	/ path로 redirect
-	
+	/ path로 redirect	
 	 -->		
+	 
 	<security:logout
 		logout-url="/logout"
 		logout-success-url="/"/>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <script>
 	$(function() {
@@ -46,7 +47,7 @@
 								<img class="card-img-top" src="http://placehold.it/500x325" alt="">
 								<div class="card-body">
 									<h4 class="card-title font-weight-bold">${vo.p_name}</h4>
-									<p class="card-text">${vo.p_oprice}원</p>
+									<p class="card-text"><fmt:formatNumber value="${vo.p_oprice}" type="currency" /></p>
 								</div>
 								<div class="card-footer">
 									<a href="#" class="btn btn-primary product_item" data-id="${vo.id}">자세히 보기</a>

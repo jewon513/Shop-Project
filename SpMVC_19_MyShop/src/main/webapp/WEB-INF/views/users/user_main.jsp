@@ -45,6 +45,7 @@ $(function(){
 									name="${_csrf.parameterName}" 
 									value="${_csrf.token}">
 								<a class="dropdown-item logout" >logout</a>
+								<a class="dropdown-item" href="${rootPath}/user/product/cart_view">장바구니</a>
 							</form>
 								<a class="dropdown-item" href="${rootPath}/admin/">관리자</a>
 							</sec:authorize>
@@ -57,6 +58,10 @@ $(function(){
 	<c:choose>
 		<c:when test="${BODY=='DETAIL'}">
 			<%@ include file="/WEB-INF/views/users/user_product_detail.jsp"%>
+
+		</c:when>
+		<c:when test="${BODY=='CART_VIEW'}">
+			<%@ include file="/WEB-INF/views/users/cart_view.jsp"%>
 
 		</c:when>
 
