@@ -17,17 +17,37 @@
 		<property name="password" value="bbsfinal"/>
 	</bean>
 	
+	
+	<!-- 
+		jdbcTypeForNull를 true로 하면 mapper에 jdbcType=VARCHAR 입력 안해줘도 됨 
+		null 값을 보내면 부적합한 열 1111 이라는 오류를 발생시키는데 이 값을 true로 하면 오류가 발생하지 않음.	
+	-->
+	
+	
 	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="oracleDS"/>
 		<property name="mapperLocations" value="/WEB-INF/spring/mybatis/mapper/*-mapper.xml"/>
 		<property name="typeAliasesPackage" value="com.biz.bbs.domain"/>
+		
+		<property name="configuration">
+			<bean class="org.apache.ibatis.session.Configuration">
+				<property name="jdbcTypeForNull" value="VARCHAR"/>
+				<property name="mapUnderscoreToCamelCase" value="false"/>
+				
+				<property name="cacheEnabled" value="true"/>
+				<property name="defaultExecutorType" value="REUSE"/>
+				<property name="logPrefix" value="MY-BATIS"/>
+			</bean>
+		</property>
+		
 	</bean>
+	
 	
 	<tx:annotation-driven/>
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="oracleDS"/>
 	</bean>
 
-	<mybatis-spring:scan base-package="com.biz.bbs.dao"/>
+	<mybatis-spring:scan base-package="com.biz.bbs.repository"/>
 
 </beans>

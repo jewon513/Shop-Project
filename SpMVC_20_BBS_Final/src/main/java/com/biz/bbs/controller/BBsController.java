@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biz.bbs.domain.BBsVO;
+import com.biz.bbs.domain.CommentVO;
 import com.biz.bbs.service.BBsService;
+import com.biz.bbs.service.CommentService;
 import com.biz.bbs.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,9 @@ public class BBsController {
 	
 	@Autowired
 	private FileService fileservice;
+	
+	@Autowired
+	private CommentService commentService;
 
 
 	/*
@@ -113,8 +118,10 @@ public class BBsController {
 	public String detail(String b_id, Model model) {
 		
 		BBsVO bbsVO = bbsService.findById(Long.valueOf(b_id));
+		List<CommentVO> commentList = commentService.findByBId(Long.valueOf(b_id));
 		
 		model.addAttribute("BBSVO", bbsVO);
+		model.addAttribute("COMMENTLIST", commentList);
 		
 		return "bbs_detail";
 		

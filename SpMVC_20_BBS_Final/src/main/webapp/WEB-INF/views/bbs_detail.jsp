@@ -22,31 +22,115 @@
 			document.location.href = "${rootPath}/list"
 
 		})
-		
-		$(".btn-delete").click(function(){
-			
+
+		$(".btn-delete").click(function() {
+
 			let b_id = $(this).attr("data-id")
-			
+
 			$.ajax({
 				url : "${rootPath}/delete",
 				type : "POST",
 				data : {
-						b_id : b_id
+					b_id : b_id
 				},
-				success : function(result){
-					if(result == "OK"){
+				success : function(result) {
+					if (result == "OK") {
 						alert("삭제완료")
 						document.location.href = '${rootPath}/list'
-					}else{
+					} else {
 						alert("삭제실패")
 						return false
 					}
+					s
+				},
+				error : function() {
+					alert("서버 통신 오류")
+				}
+
+			})
+
+		})
+
+		$(".btn-comment-write").click(function() {
+
+			let comment_data = $("#comment-form").serialize()
+
+			$.ajax({
+
+				url : '${rootPath}/comment/insert',
+				data : comment_data,
+				type : "POST",
+				success : function(result) {
+					if (result == 'OK') {
+
+						$.ajax({
+
+							url : '${rootPath}/comment/list',
+							data : {
+								c_b_id : '${BBSVO.b_id}'
+							},
+							type : "GET",
+							success : function(result) {
+								$(".comment-list").html(result)
+								$(".form-control").val("")
+							},
+							error : function() {
+								alert("댓글 리스트를 불러오는데 서버 통신 오류가 발생했습니다.")
+							}
+
+						})
+
+					} else {
+						alert("댓글을 작성하는데 오류가 발생했습니다.")
+					}
+				},
+				error : function(error) {
+					alert("서버통신 오류")
+				}
+
+			})
+
+		})
+
+		$(document).on("click", ".comment-item", function() {
+
+			let id = $(this).data("id")
+			
+			alert("comment-item의 id : " + id)
+
+		})
+		
+		$(document).on("click", ".comment-item-delete", function(event) {
+			
+			// 이벤트 버블링에 있어 현재 이벤트 이후의 전파를 막는다.
+			event.stopPropagation()
+			
+			if(!confirm("댓글을 삭제 할까요 ?")){
+				return false;
+			}
+			
+			let c_id = $(this).closest(".comment-item").data("id")
+			
+			// alert("delete 하기 위한 item의 id : " +c_id)
+			
+			$.ajax({
+				
+				url : "${rootPath}/comment/delete",
+				type : "POST",
+				data : {
+					c_id : c_id,
+					b_id : '${BBSVO.b_id}'
+				},
+				success : function(result){
+					$(".comment-list").html(result)			
 				},
 				error : function(){
 					alert("서버 통신 오류")
 				}
 				
 			})
+			
+			
 			
 		})
 
@@ -56,6 +140,10 @@
 <style>
 .content {
 	white-space: pre-line;
+}
+
+.comment-item-delete{
+	cursor: pointer;
 }
 </style>
 
@@ -82,16 +170,14 @@
 			<button class="btn btn-primary btn-list" type="button">목록으로</button>
 		</div>
 
-		<div class="comment-list mt-5">
+		<div class="mt-5">
 			<h3>Comment List</h3>
 			<hr />
 
-			<div class="p-4">
-				<div class="d-flex align-items-center">
-					<h4>작성자</h4>
-					<small class="ml-2">${BBSVO.b_date_time}</small>
-				</div>
-				<p class="pl-3 pr-3">댓글 내용</p>
+			<div class="p-4 comment-list">
+
+				<%@ include file="/WEB-INF/views/incldue/include-comment-list.jsp" %>
+
 			</div>
 
 		</div>
@@ -100,16 +186,19 @@
 			<h3>Comment Write</h3>
 			<hr />
 			<div class="p-4">
-				<div class="form-group">
-					<input class="form-control border border-secondary" placeholder="작성자">
-				</div>
-				<div class="form-group">
-					<textarea class="form-control border border-secondary" rows="10" placeholder="댓글"></textarea>
-				</div>
+				<form id="comment-form">
+					<input type="hidden" name="c_b_id" value="${BBSVO.b_id}">
+					<div class="form-group">
+						<input class="form-control border border-secondary" name=c_writer placeholder="작성자">
+					</div>
+					<div class="form-group">
+						<textarea class="form-control border border-secondary" name="c_comment" rows="10" placeholder="댓글"></textarea>
+					</div>
 
-				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary mt-3 mb-5">댓글쓰기</button>
-				</div>
+					<div class="d-flex justify-content-end">
+						<button class="btn btn-primary btn-comment-write mt-3 mb-5" type="button">댓글쓰기</button>
+					</div>
+				</form>
 			</div>
 		</div>
 

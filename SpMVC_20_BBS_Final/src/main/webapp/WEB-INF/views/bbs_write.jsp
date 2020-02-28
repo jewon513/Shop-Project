@@ -69,8 +69,6 @@
 					
 					result = "${rootPath}/files/" + result
 					
-					alert(result)
-					
 					$(editor).summernote('editor.insertImage',result)
 					
 				},
