@@ -7,6 +7,14 @@
 						http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="customLoginSuccess" class="com.biz.security.handler.CustomLoginSuccessHandler">
+	
+	</bean>
+	
+	<bean id="customPasswordEncoder" class="com.biz.security.handler.CustomNoOpPasswordEncoder">
+	
+	</bean>
+
 	<security:http auto-config="true" use-expressions="true">
 	
 		<security:intercept-url pattern="/security/all" access="permitAll"/>
@@ -15,22 +23,21 @@
 		
 		<security:intercept-url pattern="/security/admin" access="hasRole('ROLE_ADMIN')"/>
 	
-		<security:form-login/>
-	
 		<security:access-denied-handler error-page="/accessError"/>
+		
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
 		
 	</security:http>
 	
 	<security:authentication-manager>
 		
 		<security:authentication-provider>
-			<security:user-service>
 			
-				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-				
-				<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN, ROLE_MEMBER"/>
-				
-			</security:user-service>
+			<security:jdbc-user-service data-source-ref="oracleDS"
+ 			/>
+
+			<security:password-encoder ref="customPasswordEncoder"/>
+
 		</security:authentication-provider>
 		
 	</security:authentication-manager>
