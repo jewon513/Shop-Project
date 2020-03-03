@@ -36,7 +36,11 @@
 							<td>${BBS.b_id}</td>
 							<td>${BBS.b_writer}</td>
 							<td>${BBS.b_date_time}</td>
-							<td><a href="${rootPath}/detail?b_id=${BBS.b_id}">${BBS.b_subject}</a></td>
+							<td>
+								<a href="${rootPath}/detail?b_id=${BBS.b_id}">
+								${BBS.b_subject}
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

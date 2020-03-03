@@ -1,8 +1,8 @@
 package com.biz.bbs.service;
 
-import java.awt.color.CMMException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public List<CommentVO> findByBId(long c_b_id) {
-
+		
 		return commentDao.findByBId(c_b_id);
 		
 	}
@@ -51,17 +51,22 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public int insert(CommentVO commentVO) {
 
-		log.debug("입력받은 댓글 객체 : " + commentVO.toString());
-		
-		LocalDateTime ldt = LocalDateTime.now();
+		if(commentVO.getC_id() > 0) {
+			int ret = commentDao.update(commentVO);
+			return ret;
+		}else {
+			log.debug("입력받은 댓글 객체 : " + commentVO.toString());
+			
+			LocalDateTime ldt = LocalDateTime.now();
 
-		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-		commentVO.setC_date_time(ldt.format(df).toString());
+			commentVO.setC_date_time(ldt.format(df).toString());
+			
+			int ret = commentDao.insert(commentVO);
+			return ret;
+		}
 		
-		int ret = commentDao.insert(commentVO);
-		
-		return ret;
 	}
 
 	@Override
@@ -74,6 +79,8 @@ public class CommentServiceImpl implements CommentService{
 	public int delete(long c_id) {
 
 		int ret = commentDao.delete(c_id);
+		
+		
 		
 		return ret;
 	}

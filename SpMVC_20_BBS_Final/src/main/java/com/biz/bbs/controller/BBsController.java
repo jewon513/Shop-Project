@@ -128,9 +128,39 @@ public class BBsController {
 	}
 	
 	
+	@RequestMapping(value = "repl", method = RequestMethod.GET)
+	public String repl(@RequestParam("b_id") String b_id, Model model) {
+		
+		BBsVO bbsVO = bbsService.findById(Long.valueOf(b_id));
+		
+		
+		String b_subject = "re: " + bbsVO.getB_subject();
+		bbsVO.setB_subject(b_subject);
+		bbsVO.setB_content("");
+		bbsVO.setB_writer("");
+
+		model.addAttribute("BBSVO",bbsVO);
+		
+		return "bbs_write";
+		
+	}
+	
+	@RequestMapping(value = "repl", method = RequestMethod.POST)
+	public String repl(BBsVO bbsVO, Model model) {
+		
+		bbsVO.setB_p_id(bbsVO.getB_id());
+		bbsVO.setB_id(0);
+		
+		int ret = bbsService.insert(bbsVO);
+		
+		return "redirect:/list";
+	}
+	
+	
+	
+	
+	
 	// 파일 업로드 부분
-	
-	
 	@ResponseBody
 	@RequestMapping(value = "image_up", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String fileUp (MultipartFile upFile) {
@@ -148,6 +178,9 @@ public class BBsController {
 		return retrunFileName;
 		
 	}
+	
+	
+	
 	
 	
 }

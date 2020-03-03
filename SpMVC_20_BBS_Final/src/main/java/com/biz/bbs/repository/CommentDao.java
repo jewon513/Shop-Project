@@ -14,10 +14,15 @@ public interface CommentDao {
 	public CommentVO findById(long c_id);
 	
 	// 해당 게시글의 댓글만 가져오기
-	@Select("SELECT * FROM tbl_comment WHERE c_b_id = #{c_b_id} ORDER BY c_date_time")
+	@Select("select level, c_id, c_b_id, c_p_id, c_date_time, c_writer, c_comment "
+			+ "from tbl_comment "
+			+ "WHERE c_b_id = 5 "
+			+ "start with c_p_id = 0 "
+			+ "CONNECT BY PRIOR c_id = c_p_id "
+			+ "ORDER SIBLINGS BY c_date_time")
 	public List<CommentVO> findByBId(long c_b_id);
 	
-	@Select("SELECT * FROM tbl_cooment WHERE c_p_id = #{c_p_id}")
+	@Select("SELECT * FROM tbl_cooment WHERE c_p_id = #{c_p_id} ")
 	public List<CommentVO> findByPId(long c_p_id);
 	
 	public int insert(CommentVO commentVO);

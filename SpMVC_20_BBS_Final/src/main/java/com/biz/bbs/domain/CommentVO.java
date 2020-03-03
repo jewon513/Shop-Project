@@ -16,6 +16,7 @@ import lombok.ToString;
 
 public class CommentVO {
 
+	
 	private long c_id;
 	private long c_b_id;
 	private long c_p_id;
@@ -23,6 +24,6 @@ public class CommentVO {
 	private String c_writer;
 	private String c_comment;
 
-	
+	private int level;
 	
 }

@@ -73,6 +73,14 @@ public class CommentController {
 	}
 	
 	
+	@RequestMapping(value = "reply", method = RequestMethod.GET)
+	public String reply(CommentVO cmtVO, Model model) {
+	
+		model.addAttribute("CMT", cmtVO);
+		
+		return "incldue/include-comment-write";
+	}
+	
 }
 
 
