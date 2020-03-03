@@ -5,6 +5,14 @@
   
  <mapper namespace="com.biz.bbs.repository.BBsDao">
  
+ 	<select id="selectLevel" resultType="bBsVO">
+	 	SELECT b_id,b_p_id,b_date_time,b_writer,LPAD('re:', (LEVEL-1)*3) || b_subject AS b_subject
+		FROM tbl_bbs
+		START WITH b_p_id = 0
+		CONNECT BY prior b_id = b_p_id
+		ORDER SIBLINGS by b_id
+ 	</select>
+ 
  	<insert id="insert" parameterType="bBsVO">
  		INSERT INTO tbl_bbs(
  			B_ID,

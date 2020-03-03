@@ -3,6 +3,7 @@ package com.biz.bbs.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +34,14 @@ public class BBsController {
 	 * 결합도를 낮추는 결과가 된다.
 	 */
 	@Autowired
+	@Qualifier("bbsV2")
 	private BBsService bbsService;
 	
 	@Autowired
 	private FileService fileservice;
 	
 	@Autowired
+	@Qualifier("cmtV2")
 	private CommentService commentService;
 
 

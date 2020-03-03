@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Select;
 import com.biz.bbs.domain.BBsVO;
 
 public interface BBsDao {
+	
+	public List<BBsVO> selectLevel();
 
 	@Select("SELECT * FROM tbl_bbs WHERE b_p_id = 0 ORDER BY b_id DESC")
 	public List<BBsVO> selectAll();

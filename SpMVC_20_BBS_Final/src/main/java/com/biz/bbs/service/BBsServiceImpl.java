@@ -1,3 +1,5 @@
+
+
 package com.biz.bbs.service;
 
 import java.time.LocalDateTime;
@@ -11,13 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.biz.bbs.domain.BBsVO;
 import com.biz.bbs.repository.BBsDao;
 
+import lombok.RequiredArgsConstructor;
+
 
 /*
  * 	다중 select 를 수행하는 emthod들이 있고 재귀호출에 의해서 계속되는 
  */
 
 @Transactional
-@Service
+@Service("bbsV1")
 public class BBsServiceImpl implements BBsService {
 
 	protected final BBsDao bbsDao;

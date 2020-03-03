@@ -3,10 +3,7 @@
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 
 <c:forEach items="${COMMENTLIST}" var="vo">
-	<div class="comment-item
-		<c:if test="${vo.level > 1}"> pl-5</c:if>
-	
-	" data-id="${vo.c_id}">
+	<div class="comment-item <c:if test="${vo.level > 1}">pl-5</c:if>" data-id="${vo.c_id}">
 		<div class="d-flex align-items-center">
 			<h4 class="writer">${vo.c_writer}</h4>
 			<small class="ml-2">${vo.c_date_time}</small>

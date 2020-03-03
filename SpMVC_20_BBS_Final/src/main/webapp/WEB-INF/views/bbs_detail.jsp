@@ -217,18 +217,31 @@
 </script>
 
 <style>
-.content {
-	white-space: pre-line;
-}
+	.content {
+		white-space: pre-line;
+	}
+	
+	.comment-item-delete{
+		cursor: pointer;
+	}
+	
+	.comment-item-reply{
+		cursor: pointer;
+	}
 
-.comment-item-delete{
-	cursor: pointer;
-}
-
-.comment-item-reply{
-	cursor: pointer;
-}
+	.jewon-pl-2{
+		padding-left: 3rem;
+	}
+	
+	.jewon-pl-3{
+		padding-left: 6rem;
+	}
+	
+	.jewon-pl-4{
+		padding-left: 9rem;
+	}
 </style>
+
 
 <body>
 

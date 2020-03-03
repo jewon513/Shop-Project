@@ -15,10 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
+@Service("cmtV1")
 public class CommentServiceImpl implements CommentService{
 
-	private final CommentDao commentDao;
+	protected final CommentDao commentDao;
 	
 	@Override
 	public List<CommentVO> selectAll() {

@@ -16,7 +16,7 @@ public interface CommentDao {
 	// 해당 게시글의 댓글만 가져오기
 	@Select("select level, c_id, c_b_id, c_p_id, c_date_time, c_writer, c_comment "
 			+ "from tbl_comment "
-			+ "WHERE c_b_id = 5 "
+			+ "WHERE c_b_id = #{c_b_id} "
 			+ "start with c_p_id = 0 "
 			+ "CONNECT BY PRIOR c_id = c_p_id "
 			+ "ORDER SIBLINGS BY c_date_time")
