@@ -26,7 +26,7 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active"><a class="nav-link" href="${rootPath}/">Home <span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Board</a></li>
 				<sec:authorize access="isAnonymous()">
 					<li class="nav-item"><a class="nav-link" href="${rootPath}/login">Login</a></li>
 					<li class="nav-item"><a class="nav-link" href="${rootPath}/join">Join</a></li>

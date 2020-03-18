@@ -68,3 +68,5 @@ select * from tbl_comment;
 delete from tbl_comment;
 
 commit;
+
+
