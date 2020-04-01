@@ -46,6 +46,7 @@
    -->
   <Service name="Catalina">
 
+
     <!--The connectors can use a shared executor, you can define one or more named thread pools-->
     <!--
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
@@ -60,7 +61,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector connectionTimeout="20000" port="8090" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector connectionTimeout="20000" parseBodyMethods="GET,POST,PUT,DELETE" port="8090" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -149,7 +150,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="SpMVC_21_Naver_RestTemplete" path="/naver" reloadable="true" source="org.eclipse.jst.jee.server:SpMVC_21_Naver_RestTemplete"/><Context docBase="board-project" path="/board" reloadable="true" source="org.eclipse.jst.jee.server:board-project"/><Context docBase="SpMVC_99_ StudyDiary" path="/study" reloadable="true" source="org.eclipse.jst.jee.server:SpMVC_99_ StudyDiary"/></Host>
+      <Context docBase="SpMVC_25_Ajax_Junit" path="/ajax" reloadable="true" source="org.eclipse.jst.jee.server:SpMVC_25_Ajax_Junit"/></Host>
     </Engine>
   </Service>
 </Server>
