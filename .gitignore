@@ -63,3 +63,5 @@ local.properties
 RemoteSystemsTempFiles/
 NaverConfig.*
 DataGoConfig.*
+gmailMail-context.*
+naverMail-context.*
